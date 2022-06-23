@@ -11,10 +11,27 @@ const io = require('socket.io')(httpServer, {
     }
 });
 
+let chatRooms = [];
+
 
 io.on('connection', (socket) => {
     socket.on('chat', (payload) => {
-        io.emit('chat', payload);
+        console.log(payload);
+        io.to(payload.roomCode).emit('chat', {"name":payload.name,"userID":payload.iddiv,"message":payload.message});
+    });
+    socket.on('send-user', (payload) => {
+        console.log(payload);
+        socket.join(payload.roomCode);
+        
+    });
+    socket.on('send-user-create', (payload) => {
+        console.log(payload);
+
+        if(payload.roomCode===''){
+            socket.join('0000');
+        }else{
+            socket.join(payload.roomCode);
+        }
     });
 });
 

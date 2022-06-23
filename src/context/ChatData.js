@@ -7,9 +7,10 @@ const ChatState = (props) => {
     const [chat, setChat] = useState([]);
     const [name, setName] = useState('');
     const [room, setRoom] = useState('');
+    const [myMessage, setMyMessage] = useState([]);
 
     return (
-        <chatContext.Provider value={{ chat, setChat, message, setMessage, name, setName, room, setRoom }}>
+        <chatContext.Provider value={{ chat, setChat, message, setMessage, name, setName, room, setRoom, myMessage, setMyMessage }}>
             {props.children}
         </chatContext.Provider>
     )
